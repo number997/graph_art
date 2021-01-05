@@ -1,6 +1,6 @@
 .metadata
 bin/
-#graph_art_drawing_samples/
+graph_art_drawing_samples/
 tmp/
 *.tmp
 *.bak

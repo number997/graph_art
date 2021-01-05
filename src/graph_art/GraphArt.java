@@ -1,10 +1,10 @@
 package graph_art;
 
-/*######################IMPORTANT######################
- *  set package name based on your project structure  #
- *#####################################################/
+/*####################################IMPORTANT#######################################*
+ *  If you are simply copying code set package name based on your project structure  #*
+ *####################################################################################*/
 
-//GraphViz.java - a API to create graph images and dot graph representations
+//GraphArt.java - a API to create graph images and dot graph representations
 //from Java programs. API strives to be compatible with graph definitions and
 //implementations on Data Structures and Algorithms 3 course on 
 //Faculty of Sciences University of Novi Sad
@@ -29,6 +29,7 @@ package graph_art;
 *                                                                            *
 ******************************************************************************
 */
+
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
@@ -418,6 +419,9 @@ public class GraphArt
 				//if edge weighted graph or edge weighted digraph
 				sb.append(linkEdgeWeightedVertices(graph, className));
 			}
+    		sb.append("}");
+        	
+        	return sb.toString();
 		} catch (IllegalAccessException 
 				| IllegalArgumentException 
 				| InvocationTargetException 
@@ -426,9 +430,12 @@ public class GraphArt
 				| ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-    	sb.append("}");
     	
-    	return sb.toString();
+    	return errorGraphDot();
+    }
+    
+    private String errorGraphDot() {
+    	return "graph {0 [label=\"Ooops something went wrong. Error.\"] ";
     }
     
     /**
@@ -732,14 +739,14 @@ public class GraphArt
      */
     public static void help() {
     	StringBuilder sb = new StringBuilder("-----GraphViz help-----\n");
-    	sb.append("-GraphViz expects GraphViz (https://graphviz.org/) to be installed on your computer.\n"
-    			+ "-GraphViz is made to be used within graph classes used and implemented on course Data Structures and\n"
-    			+ "-Algorithms 3. GraphViz works as expected with Graph, Digraph, EdgeWeightedGraph and EdgeWeightedDigraph\n"
+    	sb.append("-GraphArt expects GraphViz (https://graphviz.org/) to be installed on your computer.\n"
+    			+ "-GraphArt is made to be used within graph classes used and implemented on course Data Structures and\n"
+    			+ "-Algorithms 3. GraphArt works as expected with Graph, Digraph, EdgeWeightedGraph and EdgeWeightedDigraph\n"
     			+ "-from edu.princeton.cs.algs4 package on Windows 10, and Ubuntu 20.04 LTS operating systems. Custom implemetations\n"
                 + "-of mentioned classes also works fine as long as methods are defined or set as described further in text.\n"
                 + "-MacOSX is not tested.\n\n");
-    	sb.append("-GraphViz can be used for making dot string representation of Graphs used and implemented on course\n"
-    			+ "-Data Structures and Algorithms 3. To make graph image GraphViz expects either object of one of graph\n"
+    	sb.append("-GraphArt can be used for making dot string representation of Graphs used and implemented on course\n"
+    			+ "-Data Structures and Algorithms 3. To make graph image GraphArt expects either object of one of graph\n"
     			+ "-types used on aforementioned course or valid dot representation of required graph.\n");
     	sb.append("-Default allowed class names are Graph, Digraph, EdgeWeightedGraph and EdgeWeightedDigraph.\n"
     			+ "-Class names can be changed by using methods: \n"
@@ -774,7 +781,7 @@ public class GraphArt
     			+ "-Same can be applied for other methods for setting method name.\n"
     			+ "-All method and graph names can be reset to default by using methods resetMethodNames() and resetGraphClassNames()\n"
     			+ "-respectively.\n\n");
-    	sb.append("-By using method toDot(Object graph) GraphViz will return String representaion of graph passed to method.\n");
+    	sb.append("-By using method toDot(Object graph) GraphArt will return String representaion of graph passed to method.\n");
     	sb.append("-Output image type can be changed by using method setFileType(String fileType). Allowed file types are:\n"
     			+ "\t-png (default)\n"
     			+ "\t-jpg\n"
@@ -782,7 +789,7 @@ public class GraphArt
     			+ "-For example if gif is required, method setFileType(String fileType) should be used as setFileType(\"gif\").\n\n");
     	sb.append("-If in your implementation of graph you have toDot() method, or toString() method that returns dot format of graph,\n"
     			+ "-(or for that purpose any other method that returns dot formated string of graph)\n"
-    			+ "-GraphViz can be used to draw your graph by using\n"
+    			+ "-GraphArt can be used to draw your graph by using\n"
     			+ "-drawGraph(String dotSource) as drawGraph(graph.toDot()) or drawGraph(graph.toString()).\n\n");
     	sb.append("-For graphs that have less than 400 edges method drawInBrowser(Object graph) or drawInBrowser(String dot) can be used.\n"
     			+ "-Default browser will be opened and appropriate query sent to service that does drawing.");
@@ -793,21 +800,23 @@ public class GraphArt
     			+ "        Graph g = new Graph(Svetovid.in(\"mediumG.txt\"));\r\n"
     			+ "        EdgeWeightedDigraph ewd = new EdgeWeightedDigraph(new In(\"tinyEWD.txt\"));\r\n"
     			+ "        EdgeWeightedGraph ewdd = new EdgeWeightedGraph(new In(\"tinyEWD.txt\"));\r\n\r\n"
-    			+ "        GraphViz graphViz = new GraphViz();\r\n"
-    			+ "        //usage example by providing graph object, and notifying GraphViz about method names\r\n"
-    			+ "        graphViz.drawGraph(ewd);\r\n"
-    			+ "        graphViz.setFileType(\"jpg\");\r\n"
-    			+ "        graphViz.drawGraph(ewdd);\r\n"
-    			+ "        graphViz.setFileType(\"gif\");\r\n"
-    			+ "        graphViz.setAdjacentVerticesMethodName(\"susjedi\");\r\n"
-    			+ "        graphViz.setNumberOfVerticesMethodName(\"brojCvorova\");\r\n"
-    			+ "        graphViz.drawGraph(d);\r\n"
-    			+ "        graphViz.resetMethodNames();\r\n"
-    			+ "        graphViz.setFileType(\"png\");\r\n"
-    			+ "        graphViz.drawGraph(g);\r\n"
+    			+ "        GraphArt graphArt = new GraphArt();\r\n"
+    			+ "        //usage example by providing graph object, and notifying GraphArt about method names\r\n"
+    			+ "        graphArt.drawGraph(ewd);\r\n"
+    			+ "        graphArt.setFileType(\"jpg\");\r\n"
+    			+ "        graphArt.drawGraph(ewdd);\r\n"
+    			+ "        graphArt.setFileType(\"gif\");\r\n"
+    			+ "        graphArt.setAdjacentVerticesMethodName(\"susjedi\");\r\n"
+    			+ "        graphArt.setNumberOfVerticesMethodName(\"brojCvorova\");\r\n"
+    			+ "        graphArt.drawGraph(d);\r\n"
+    			+ "        graphArt.resetMethodNames();\r\n"
+    			+ "        graphArt.setFileType(\"png\");\r\n"
+    			+ "        graphArt.drawGraph(g);\r\n"
     			+ "        //if your toString() or toDot() method returns proper dot representation of graph respectively\r\n"
-    			+ "        graphViz.drawGraph(g.toString())\r\n"
-    			+ "        graphViz.drawGraph(g.toDot())\r\n"
+    			+ "        graphArt.drawGraph(g.toString())\r\n"
+    			+ "        graphArt.drawGraph(g.toDot())\r\n"
+    			+ "	       //to draw graph using online service\r\n"
+    	        + "		   graphArt.drawInBrowser(ewd);\r\n"
     			+ "    }\r\n"
     			+ "}");
     	System.out.println(sb);
